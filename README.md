@@ -23,6 +23,7 @@ Welcome to the NeuralNetworkJPO project documentation. This project is a simple 
 ### Prerequisites
 
 This application requires the following dependencies:
+- CMake version (at least) 3.10
 - Eigen library for linear algebra operations.
 - C++17 compiler.
 
