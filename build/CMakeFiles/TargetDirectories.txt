@@ -1,0 +1,3 @@
+/home/kacper/programowanie/NeuralNetworkJPO/build/CMakeFiles/NeuralNetworkJPO.dir
+/home/kacper/programowanie/NeuralNetworkJPO/build/CMakeFiles/edit_cache.dir
+/home/kacper/programowanie/NeuralNetworkJPO/build/CMakeFiles/rebuild_cache.dir
