@@ -47,7 +47,13 @@ A simple way to build this project is with CMake:
 
 Ensure you have CMake installed. If not, install it using:
 
+    sudo apt-get update
     sudo apt-get install cmake
+
+Ensure you have Eigen3 installed. If not, install it using:
+
+    sudo apt-get update
+    sudo apt-get install libeigen3-dev
 
 ### Windows
 
@@ -79,15 +85,18 @@ int main() {
     Eigen::VectorXd target(1);
     target << 1.0;
 
-    // Forward propagation
-    nn.forwardPropagation(input);
+    // Number of epochs to train the network
+    int epochs = 1000;
+    for (int epoch = 0; epoch < epochs; ++epoch) {
+        // Forward propagation
+        nn.forwardPropagation(input);
 
-    // Backpropagation
-    nn.backPropagation(target);
+        // Backpropagation
+        nn.backPropagation(target);
 
-    // Update weights and biases
-    nn.updateWeightsAndBiases();
-
+        // Update weights and biases
+        nn.updateWeightsAndBiases();
+    }
     // Predict output
     Eigen::VectorXd output = nn.predict(input);
     std::cout << "Predicted output: " << output[0] << std::endl;
