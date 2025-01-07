@@ -9,7 +9,7 @@ using namespace kl;
 
 void testXOR() {
     // Define XOR topology
-    std::vector<uint> topology = {2, 4, 1}; // 2 inputs, 3 hidden neurons, 1 output
+    std::vector<uint> topology = {2, 4, 1}; // 2 inputs, 4 hidden neurons, 1 output
     double learningRate = 0.01;
 
     // Create neural network
@@ -56,7 +56,7 @@ void testXOR() {
 
 void testSineFunction() {
     // Define topology for sine function approximation
-    std::vector<uint> topology = {1, 6, 1}; // 1 input, 2 hidden neurons, 1 output
+    std::vector<uint> topology = {1, 6, 1}; // 1 input, 6 hidden neurons, 1 output
     double learningRate = 0.01;
 
     // Create neural network
