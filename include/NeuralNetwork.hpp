@@ -15,6 +15,7 @@
 namespace kl {
 
 /**
+ * @class NeuralNetwork
  * @brief Represents a neural network with multiple layers.
  */
 class NeuralNetwork {

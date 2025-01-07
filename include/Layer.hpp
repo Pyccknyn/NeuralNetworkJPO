@@ -1,3 +1,8 @@
+/**
+ * @file Layer.hpp
+ * @brief Defines the Layer base class and derived classes InputLayer, HiddenLayer, OutputLayer.
+ */
+
 #ifndef LAYER_HPP
 #define LAYER_HPP
 
@@ -31,13 +36,13 @@ public:
      * @brief Gets a constant reference to the neurons in the layer.
      * @return A constant reference to the vector of neurons.
      */
-    const std::vector<Neuron>& getNeurons() const { return m_neurons; }
+    const std::vector<Neuron>& getNeurons() const;
 
     /**
      * @brief Gets a mutable reference to the neurons in the layer.
      * @return A reference to the vector of neurons.
      */
-    std::vector<Neuron>& getNeurons() { return m_neurons; }
+    std::vector<Neuron>& getNeurons();
 
     std::vector<Neuron> m_neurons; ///< Neurons in the layer.
     Layer* m_previousLayer = nullptr; ///< Pointer to the previous layer in the network.

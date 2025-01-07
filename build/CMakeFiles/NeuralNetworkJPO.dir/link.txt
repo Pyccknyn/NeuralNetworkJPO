@@ -1,1 +1,0 @@
-/usr/bin/c++ -g CMakeFiles/NeuralNetworkJPO.dir/src/Layer.cpp.o CMakeFiles/NeuralNetworkJPO.dir/src/NeuralNetwork.cpp.o CMakeFiles/NeuralNetworkJPO.dir/src/Neuron.cpp.o CMakeFiles/NeuralNetworkJPO.dir/src/main.cpp.o -o NeuralNetworkJPO 

@@ -5,6 +5,18 @@
 namespace kl {
 
 /**
+ * @brief Gets a constant reference to the neurons in the layer.
+ * @return A constant reference to the vector of neurons.
+ */
+const std::vector<Neuron>& Layer::getNeurons() const {return m_neurons;}
+
+/**
+ * @brief Gets a mutable reference to the neurons in the layer.
+ * @return A reference to the vector of neurons.
+ */
+std::vector<Neuron>& Layer::getNeurons() {return m_neurons;}
+
+/**
  * @brief Constructs an InputLayer with the specified number of neurons.
  * @param numNeurons Number of neurons in the layer.
  */
