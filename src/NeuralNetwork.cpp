@@ -1,3 +1,7 @@
+/**
+ * @file NeuralNetwork.cpp
+ * @brief Implements the NeuralNetwork class for managing layers, training, and predictions.
+ */
 #include "NeuralNetwork.hpp"
 #include <random>
 
@@ -15,6 +19,7 @@ NeuralNetwork::NeuralNetwork(const std::vector<uint>& topology, double learningR
         m_layers.push_back(std::make_unique<HiddenLayer>(topology[i]));
     }
     m_layers.push_back(std::make_unique<OutputLayer>(topology.back()));
+    
     for (size_t i = 1; i < m_layers.size(); ++i) {
         m_layers[i]->m_previousLayer = m_layers[i - 1].get(); // Link previous layer
     }

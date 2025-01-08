@@ -1,7 +1,20 @@
+/**
+ * @file utils.hpp
+ * @brief Utility functions for neural network operations.
+ * 
+ * This file contains utility functions for normalizing input vectors and matrices,
+ * calculating mean squared error, and splitting datasets into training and testing sets.
+ */
+
 #ifndef UTILS_HPP
 #define UTILS_HPP
 
 #include <Eigen/Dense>
+#include <string>
+#include <stdexcept>
+#include <fstream>
+#include <sstream>
+#include <vector> 
 
 /**
  * @brief Normalizes a single input vector based on the provided reference matrix.
@@ -30,6 +43,12 @@ Eigen::VectorXd normalizeInput(const Eigen::VectorXd& input, const Eigen::Matrix
  */
 Eigen::MatrixXd normalizeMatrix(const Eigen::MatrixXd& matrix);
 
-
+/**
+ * @brief Reads data from a CSV file and uploads it into an Eigen::MatrixXd.
+ * @param filename The name of the CSV file.
+ * @return Eigen::MatrixXd containing the CSV data.
+ * @throws std::runtime_error If the file cannot be opened.
+ */
+Eigen::MatrixXd readCSV(const std::string& filename);
 
 #endif // UTILS_HPP

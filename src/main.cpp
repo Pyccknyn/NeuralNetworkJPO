@@ -1,9 +1,23 @@
-#include <iostream>
+/**
+ * @file main.cpp
+ * @brief Entry point for the neural network application.
+ * 
+ * This file contains the main function to test the neural network implementation
+ * using the XOR problem as an example.
+ */
+
 #include <Eigen/Dense>
+#include <iostream>
 #include <cmath>
+#include <fstream>
+#include <sstream>
+#include <vector>
+#include <string>
+#include <stdexcept>
 #include "Neuron.hpp"
 #include "Layer.hpp"
 #include "NeuralNetwork.hpp"
+#include "utils.hpp"
 
 using namespace kl;
 
@@ -98,12 +112,70 @@ void testSineFunction() {
     }
 }
 
+void testIris() {
+    // Load the Iris dataset
+    Eigen::MatrixXd irisData = readCSV("../data/iris.csv");
+    Eigen::MatrixXd irisTargets = readCSV("../data/iris_out.csv");
+
+    // Normalize the input data
+    Eigen::MatrixXd normalizedData = normalizeMatrix(irisData);
+
+    // Define topology for the neural network
+    std::vector<uint> topology = {4, 5, 4, 3}; // 4 input, 5 hidden, 4 hidden, 3 output
+    double learningRate = 0.01;
+
+    // Create the neural network
+    NeuralNetwork nn(topology, learningRate);
+
+    // Training parameters
+    int epochs = 1000;
+    for (int epoch = 0; epoch < epochs; ++epoch) {
+        double totalError = 0.0;
+        for (Eigen::Index i = 0; i < normalizedData.rows(); ++i) {
+            Eigen::VectorXd input = normalizedData.row(i);
+            Eigen::VectorXd target = irisTargets.row(i);
+
+            nn.forwardPropagation(input);
+            nn.backPropagation(target);
+            nn.updateWeightsAndBiases();
+
+            totalError += nn.calculateError(target);
+        }
+
+        if (epoch % 100 == 0) {
+            std::cout << "Epoch " << epoch << ": Total Error = " << totalError / normalizedData.rows() << std::endl;
+        }
+    }
+
+    // Test the network on the training data
+    std::cout << "\nTesting on training data:\n";
+    for (Eigen::Index i = 0; i < normalizedData.rows(); ++i) {
+        Eigen::VectorXd input = normalizedData.row(i);
+        Eigen::VectorXd target = irisTargets.row(i);
+
+        Eigen::VectorXd output = nn.predict(input);
+    }
+
+    // Custom test case
+    std::cout << "\nTesting custom input:\n";
+    Eigen::VectorXd customInput(4);
+    customInput << 7.9, 3.8, 6.4, 2.0; // Example Iris Virginica flower measurements
+    Eigen::VectorXd normalizedCustomInput = normalizeInput(customInput, irisData);
+    Eigen::VectorXd customOutput = nn.predict(normalizedCustomInput);
+
+    std::cout << "Custom Input: " << customInput.transpose() << "\n"
+                << "Predicted Output: " << customOutput.transpose() << "\n";
+}
+
 int main() {
     std::cout << "Running XOR Test...\n";
     testXOR();
 
     std::cout << "\nRunning Sine Function Test...\n";
     testSineFunction();
+
+    std::cout << "\nRunning Iris Dataset Test...\n";
+    testIris();
 
     return 0;
 }

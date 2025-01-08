@@ -6,6 +6,11 @@
  */
 
 #include <Eigen/Dense>
+#include <fstream>
+#include <sstream>
+#include <vector>
+#include <string>
+#include <stdexcept>
 #include "utils.hpp"
 
 
@@ -60,3 +65,57 @@ Eigen::MatrixXd normalizeMatrix(const Eigen::MatrixXd& matrix) {
     return normalizedMatrix;
 }
 
+/**
+ * @brief Reads data from a CSV file and uploads it into an Eigen::MatrixXd.
+ * @param filename The name of the CSV file.
+ * @return Eigen::MatrixXd containing the CSV data.
+ * @throws std::runtime_error If the file cannot be opened.
+ */
+Eigen::MatrixXd readCSV(const std::string& filename) {
+    std::ifstream file(filename);
+    if (!file.is_open()) {
+        throw std::runtime_error("Could not open file " + filename);
+    }
+
+    std::vector<std::vector<double>> data;
+    std::string line;
+
+    // Read each line from the CSV file
+    while (std::getline(file, line)) {
+        std::stringstream lineStream(line);
+        std::string cell;
+        std::vector<double> row;
+
+        // Read each cell in the line
+        while (std::getline(lineStream, cell, ',')) {
+            try {
+                row.push_back(std::stod(cell));
+            } catch (const std::invalid_argument&) {
+                continue; // Skip invalid row
+            }
+        }
+        data.push_back(row);
+    }
+
+    file.close();
+
+    // Convert the data vector to an Eigen::MatrixXd
+    if (data.empty()) {
+        throw std::runtime_error("CSV file is empty.");
+    }
+
+    size_t numRows = data.size();
+    size_t numCols = data[0].size();
+    Eigen::MatrixXd matrix(numRows, numCols);
+
+    for (size_t i = 0; i < numRows; ++i) {
+        if (data[i].size() != numCols) {
+            throw std::runtime_error("Inconsistent number of columns in CSV file.");
+        }
+        for (size_t j = 0; j < numCols; ++j) {
+            matrix(i, j) = data[i][j];
+        }
+    }
+
+    return matrix;
+}

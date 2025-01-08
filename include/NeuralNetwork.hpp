@@ -1,4 +1,3 @@
-
 /**
  * @file NeuralNetwork.hpp
  * @brief Defines the NeuralNetwork class for managing layers, training, and predictions.
