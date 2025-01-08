@@ -2,8 +2,6 @@
 
 A student project developed for the Object-Oriented Programming (OOP) course.
 
-The Doxygen documentation for this project is available [here](#).
-
 ## Introduction
 
 Welcome to the NeuralNetworkJPO project documentation. This project is a simple implementation of a neural network designed for educational purposes. It includes key features such as:
@@ -60,7 +58,7 @@ Ensure you have Eigen3 installed. If not, install it using:
 
 1. Install a C++17-compatible compiler (e.g., Visual Studio).
 2. Install CMake from [cmake.org](https://cmake.org/).
-3. Download the desired release of Eigen from [https://eigen.tuxfamily.org/index.php?title=Main_Page](http://eigen.tuxfamily.org/).
+3. Download the desired release of Eigen from [https://eigen.tuxfamily.org](http://eigen.tuxfamily.org).
 4. Unzip in the location of your choice, preferrably at C:\ or C:\Program files for better discoverability by CMake find-modules (remember to extract the inner folder and rename it to Eigen3 or Eigen).
 5. Follow the same steps as in the Linux section using a terminal like PowerShell or the CMake GUI.
 
