@@ -19,7 +19,7 @@
 #include "NeuralNetwork.hpp"
 #include "utils.hpp"
 
-using namespace kl;
+using kl::NeuralNetwork;
 
 void testXOR() {
     // Define XOR topology
@@ -147,15 +147,6 @@ void testIris() {
         }
     }
 
-    // Test the network on the training data
-    std::cout << "\nTesting on training data:\n";
-    for (Eigen::Index i = 0; i < normalizedData.rows(); ++i) {
-        Eigen::VectorXd input = normalizedData.row(i);
-        Eigen::VectorXd target = irisTargets.row(i);
-
-        Eigen::VectorXd output = nn.predict(input);
-    }
-
     // Custom test case
     std::cout << "\nTesting custom input:\n";
     Eigen::VectorXd customInput(4);
@@ -164,7 +155,7 @@ void testIris() {
     Eigen::VectorXd customOutput = nn.predict(normalizedCustomInput);
 
     std::cout << "Custom Input: " << customInput.transpose() << "\n"
-                << "Predicted Output: " << customOutput.transpose() << "\n";
+            << "Predicted Output: " << customOutput.transpose() << "\n";
 }
 
 int main() {

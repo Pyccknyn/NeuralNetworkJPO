@@ -13,7 +13,6 @@
 namespace kl {
 
 /**
- * @class Layer
  * @brief Base class representing a generic layer in the neural network.
  */
 class Layer {
@@ -45,14 +44,12 @@ public:
      */
     std::vector<Neuron>& getNeurons();
 
-protected:
     std::vector<Neuron> m_neurons; ///< Neurons in the layer.
     Layer* m_previousLayer = nullptr; ///< Pointer to the previous layer in the network.
     Layer* m_nextLayer = nullptr; ///< Pointer to the next layer in the network.
 };
 
 /**
- * @class InputLayer
  * @brief Represents the input layer of the neural network.
  */
 class InputLayer : public Layer {
@@ -81,7 +78,6 @@ public:
 };
 
 /**
- * @class HiddenLayer
  * @brief Represents a hidden layer in the neural network.
  */
 class HiddenLayer : public Layer {
@@ -104,7 +100,6 @@ public:
 };
 
 /**
- * @class OutputLayer
  * @brief Represents the output layer of the neural network.
  */
 class OutputLayer : public Layer {

@@ -2,9 +2,7 @@
  * @file Layer.cpp
  * @brief Implements the Layer base class and derived classes InputLayer, HiddenLayer, OutputLayer.
  */
-
 #include "Layer.hpp"
-#include "Neuron.hpp"
 #include <cmath>
 #include <Eigen/Dense>
 
@@ -37,21 +35,22 @@ InputLayer::InputLayer(int numNeurons) {
 void InputLayer::forwardParam(const Eigen::VectorXd& input) {
     for (size_t i = 0; i < m_neurons.size(); ++i) {
         m_neurons[i].setValue(input[i]);
+        m_neurons[i].setActivation(input[i]);
     }
 }
 
 /**
- * @brief Performs a forward pass (overridden from the base class).
+ * @brief Performs a forward pass (not used in InputLayer).
  */
 void InputLayer::forward() {
-    // Implementation for forward pass in InputLayer
+    // This method remains empty because `InputLayer::forward(const Eigen::VectorXd&)` is used
 }
 
 /**
- * @brief Performs a backward pass (overridden from the base class).
+ * @brief Performs a backward pass (not required for InputLayer).
  */
 void InputLayer::backward() {
-    // Implementation for backward pass in InputLayer
+    // InputLayer does not require backpropagation
 }
 
 /**
@@ -63,17 +62,32 @@ HiddenLayer::HiddenLayer(int numNeurons) {
 }
 
 /**
- * @brief Performs a forward pass (overridden from the base class).
+ * @brief Performs a forward pass through the hidden layer.
  */
 void HiddenLayer::forward() {
-    // Implementation for forward pass in HiddenLayer
+    for (auto& neuron : m_neurons) {
+        double weightedSum = 0.0;
+        for (size_t i = 0; i < m_previousLayer->getNeurons().size(); ++i) {
+            weightedSum += m_previousLayer->getNeurons()[i].getActivation() * neuron.getWeights()[i];
+        }
+        weightedSum += neuron.getBias();
+        neuron.setActivation(Neuron::tanhActivation(weightedSum)); // Use tanh
+    }
 }
 
 /**
- * @brief Performs a backward pass (overridden from the base class).
+ * @brief Performs a backward pass through the hidden layer.
  */
 void HiddenLayer::backward() {
-    // Implementation for backward pass in HiddenLayer
+    for (size_t i = 0; i < m_neurons.size(); ++i) {
+        double downstreamGradientSum = 0.0;
+        for (const auto& downstreamNeuron : m_nextLayer->getNeurons()) {
+            downstreamGradientSum += downstreamNeuron.getWeights()[i] * downstreamNeuron.getGradient();
+        }
+        double activation = m_neurons[i].getActivation();
+        double gradient = downstreamGradientSum * Neuron::tanhDerivative(activation); // Use tanh derivative
+        m_neurons[i].setGradient(gradient);
+    }
 }
 
 /**
@@ -85,25 +99,37 @@ OutputLayer::OutputLayer(int numNeurons) {
 }
 
 /**
- * @brief Performs a forward pass (overridden from the base class).
+ * @brief Performs a forward pass through the output layer.
  */
 void OutputLayer::forward() {
-    // Implementation for forward pass in OutputLayer
+    for (auto& neuron : m_neurons) {
+        double weightedSum = 0.0;
+        for (size_t i = 0; i < m_previousLayer->getNeurons().size(); ++i) {
+            weightedSum += m_previousLayer->getNeurons()[i].getActivation() * neuron.getWeights()[i];
+        }
+        weightedSum += neuron.getBias();
+        neuron.setActivation(Neuron::tanhActivation(weightedSum)); // Use tanh
+    }
 }
 
 /**
- * @brief Performs a backward pass with target values.
+ * @brief Performs a backward pass through the output layer using target values.
  * @param target Vector of target values for backpropagation.
  */
 void OutputLayer::backwardParam(const Eigen::VectorXd& target) {
-    // Implementation for backward pass with target values in OutputLayer
+    for (size_t i = 0; i < m_neurons.size(); ++i) {
+        double activation = m_neurons[i].getActivation();
+        double error = target[i] - activation;
+        double gradient = error * Neuron::tanhDerivative(activation); // Use tanh derivative
+        m_neurons[i].setGradient(gradient);
+    }
 }
 
 /**
- * @brief Performs a backward pass (overridden from the base class).
+ * @brief Performs a backward pass (not used in this overload).
  */
 void OutputLayer::backward() {
-    // Implementation for backward pass in OutputLayer
+    // This method remains empty because `OutputLayer::backward(const Eigen::VectorXd&)` is used
 }
 
 } // namespace kl
