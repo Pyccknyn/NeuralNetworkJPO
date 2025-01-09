@@ -1,3 +1,8 @@
+/**
+ * @file Neuron.cpp
+ * @brief Implements the Neuron class for representing individual units in the neural network.
+ */
+
 #include "Neuron.hpp"
 
 namespace kl {
@@ -72,20 +77,19 @@ std::vector<double> Neuron::getWeights() const { return m_weights; }
 /**
  * @brief Hyperbolic tangent activation function.
  * @param x The input value.
- * @return The activated value using the tanh function.
+ * @return double The activated value.
  */
 double Neuron::tanhActivation(double x) {
-    return std::tanh(x); 
+    return std::tanh(x);
 }
 
 /**
  * @brief Derivative of the hyperbolic tangent activation function.
  * @param x The input value.
- * @return The derivative value of the tanh function.
+ * @return double The derivative value.
  */
 double Neuron::tanhDerivative(double x) {
-    double tanhValue = tanhActivation(x);
-    return 1.0 - (tanhValue * tanhValue); // 1 - tanh^2(x)
+    return 1.0 - std::tanh(x) * std::tanh(x);
 }
 
 } // namespace kl
