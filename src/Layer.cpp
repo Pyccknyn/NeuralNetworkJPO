@@ -21,6 +21,18 @@ const std::vector<Neuron>& Layer::getNeurons() const {return m_neurons;}
 std::vector<Neuron>& Layer::getNeurons() {return m_neurons;}
 
 /**
+ * @brief Sets the previous layer in the network.
+ * @param previousLayer Pointer to the previous layer.
+ */
+void Layer::setPreviousLayer(Layer* previousLayer) {m_previousLayer = previousLayer;}
+
+/**
+ * @brief Sets the next layer in the network.
+ * @param nextLayer Pointer to the next layer.
+ */
+void Layer::setNextLayer(Layer* nextLayer) {m_nextLayer = nextLayer;}
+
+/**
  * @brief Constructs an InputLayer with the specified number of neurons.
  * @param numNeurons Number of neurons in the layer.
  */

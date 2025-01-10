@@ -7,6 +7,7 @@
  */
 
 #include <Eigen/Dense>
+
 #include <iostream>
 #include <cmath>
 #include <fstream>
@@ -14,10 +15,12 @@
 #include <vector>
 #include <string>
 #include <stdexcept>
+
 #include "Neuron.hpp"
 #include "Layer.hpp"
 #include "NeuralNetwork.hpp"
 #include "utils.hpp"
+#include "main.hpp"
 
 using kl::NeuralNetwork;
 
