@@ -44,6 +44,19 @@ public:
      */
     std::vector<Neuron>& getNeurons();
 
+    /**
+     * @brief Sets the previous layer in the network.
+     * @param previousLayer Pointer to the previous layer.
+     */
+    void setPreviousLayer(Layer* previousLayer);
+
+    /**
+     * @brief Sets the next layer in the network.
+     * @param nextLayer Pointer to the next layer.
+     */
+    void setNextLayer(Layer* nextLayer);
+
+protected:
     std::vector<Neuron> m_neurons; ///< Neurons in the layer.
     Layer* m_previousLayer = nullptr; ///< Pointer to the previous layer in the network.
     Layer* m_nextLayer = nullptr; ///< Pointer to the next layer in the network.
