@@ -56,7 +56,7 @@ Ensure you have Eigen3 installed. If not, install it using:
 
 ### Windows
 
-1. Install a C++17-compatible compiler (e.g., Visual Studio).
+1. Install a C++17-compatible compiler (e.g., MSVC).
 2. Install CMake from [cmake.org](https://cmake.org/).
 3. Download the desired release of Eigen from [https://eigen.tuxfamily.org](http://eigen.tuxfamily.org).
 4. Unzip in the location of your choice, preferrably at C:\ or C:\Program files for better discoverability by CMake find-modules (remember to extract the inner folder and rename it to Eigen3 or Eigen).
